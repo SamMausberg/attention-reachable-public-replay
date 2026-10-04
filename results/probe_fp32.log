@@ -1,0 +1,1 @@
+{"mode": "fp32", "model_sha256": "5a1395716f7913741cc51d98581b9b1228d80987a9f7d3664106742eb06bba83", "torch": "2.10.0+cpu", "load_seconds": 0.47606374999998025, "prefill_including_snapshot_seconds": 15.294878780000005, "hidden_norm": 948.9887204486413, "rms": 39.541196811810444, "readout_pair_gradient_screen": 0.28713508981803865}

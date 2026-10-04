@@ -1,0 +1,10 @@
+{
+  "pages": 13,
+  "compiler": "pdfLaTeX and BibTeX",
+  "final_pass_warnings": 0,
+  "undefined_references": 0,
+  "overfull_boxes": 0,
+  "underfull_boxes": 0,
+  "all_pages_rendered_and_inspected": true,
+  "revision": "public-domain second prompt and explicit residual-envelope convention"
+}

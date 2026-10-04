@@ -1,0 +1,2 @@
+# Preserve exact release bytes for MANIFEST.sha256 and retained witnesses.
+* -text

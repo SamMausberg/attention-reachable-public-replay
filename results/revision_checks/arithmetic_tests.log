@@ -1,0 +1,2 @@
+OPENBLAS_NUM_THREADS=1 python code/test_arithmetic.py
+{'sampler_cases': 35, 'independent_moment_checks': 33, 'expected_precision_guards': 2, 'edge_controls_passed': True, 'seconds': 0.05069860300000073}

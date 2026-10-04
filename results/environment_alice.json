@@ -1,0 +1,14 @@
+{
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "numpy": "2.3.5",
+  "torch": "2.10.0+cpu",
+  "regex": "2026.5.9",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "machine": "x86_64",
+  "torch_threads_used": 4,
+  "cuda_available": false,
+  "checkpoint_sha256": "5a1395716f7913741cc51d98581b9b1228d80987a9f7d3664106742eb06bba83",
+  "concurrency": 1,
+  "checked_and_dense_runs": "sequential; no overlapping inference or numerical-audit jobs",
+  "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+}

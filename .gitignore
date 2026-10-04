@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+*.gguf
+code/*.so
+data/tail_weights.npz
+formal/.lake/
+paper/*.aux
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.toc

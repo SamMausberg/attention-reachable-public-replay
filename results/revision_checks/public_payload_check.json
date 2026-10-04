@@ -1,0 +1,9 @@
+{
+  "old_prompt_prefix_not_present_in_public_integer_arrays": true,
+  "old_passage_and_source_path_not_present_in_public_text": true,
+  "alice_prompt_token_roundtrip": true,
+  "technical_prompt_token_roundtrip": true,
+  "alice_tokens": 7168,
+  "technical_tokens": 7168,
+  "checkpoint_digest": "5a1395716f7913741cc51d98581b9b1228d80987a9f7d3664106742eb06bba83"
+}

@@ -1,0 +1,6 @@
+OPENBLAS_NUM_THREADS=1 python code/compact_replay.py
+Checked reached-state lower gain, projection, nine cliques, three dual allocation witnesses, and sequence budget.
+Tenfold budget 6451 rejected; 18632 still rejected; 18633 is the first nonrejected lower-bound budget.
+Total wall time: 13.015 seconds
+OPENBLAS_NUM_THREADS=1 python code/test_arithmetic.py
+{'sampler_cases': 35, 'independent_moment_checks': 33, 'expected_precision_guards': 2, 'edge_controls_passed': True, 'seconds': 0.0518648669999493}

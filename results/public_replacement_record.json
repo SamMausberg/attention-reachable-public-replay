@@ -1,0 +1,29 @@
+{
+  "removed_legacy_paths": [
+    "data/shakespeare_step0031.npz",
+    "data/shakespeare_step0767.npz",
+    "data/shakespeare_step0002.npz",
+    "data/shakespeare_step0000.npz",
+    "data/shakespeare_step0255.npz",
+    "data/baseline_shakespeare_tokens.npy",
+    "data/shakespeare_step0001.npz",
+    "data/shakespeare_tokens.npy",
+    "data/shakespeare_prompt_ids.npy",
+    "data/shakespeare_step1023.npz",
+    "data/shakespeare_step0003.npz",
+    "data/shakespeare_step0127.npz",
+    "data/shakespeare_step0063.npz",
+    "data/shakespeare_step0511.npz",
+    "results/shakespeare.jsonl",
+    "results/shakespeare.json",
+    "results/shakespeare.log",
+    "results/baseline_shakespeare.log",
+    "results/baseline_shakespeare.json",
+    "paper/figures/shakespeare.dat",
+    "MANIFEST.sha256",
+    "results/latex_build.log",
+    "results/paper_build.json"
+  ],
+  "replacement_prompt": "data/alice_input_ids.npy",
+  "scope": "The former second-prompt arrays, continuations, paired-logit snapshots, execution traces, and dense control are excluded. Unchanged technical records remain."
+}

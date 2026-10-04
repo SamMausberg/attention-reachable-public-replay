@@ -1,0 +1,12 @@
+{
+  "command": [
+    "python",
+    "code/baseline.py",
+    "--model",
+    "/mnt/data/SmolLM2-135M-Instruct.gguf.bin",
+    "--trace",
+    "alice"
+  ],
+  "pid": 981,
+  "started_utc": "2026-10-04T04:36:25.567289+00:00"
+}

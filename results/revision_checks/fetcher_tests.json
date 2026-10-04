@@ -1,0 +1,5 @@
+{
+  "existing_correct_digest_verified": true,
+  "existing_bad_digest_rejected_without_overwrite": true,
+  "network_download_path_executed": false
+}

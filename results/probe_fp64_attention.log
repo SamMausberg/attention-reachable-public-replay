@@ -1,0 +1,1 @@
+{"mode": "fp64_attention", "model_sha256": "5a1395716f7913741cc51d98581b9b1228d80987a9f7d3664106742eb06bba83", "torch": "2.10.0+cpu", "load_seconds": 0.45673794599997564, "prefill_including_snapshot_seconds": 30.88544777200002, "hidden_norm": 948.9886658820242, "rms": 39.54119453820141, "readout_pair_gradient_screen": 0.2871351059469356}

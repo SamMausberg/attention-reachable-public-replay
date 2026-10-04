@@ -1,0 +1,16 @@
+{
+  "title": "Alice's Adventures in Wonderland",
+  "author": "Lewis Carroll",
+  "source": "https://www.gutenberg.org/cache/epub/11/pg11.txt",
+  "catalogue": "https://www.gutenberg.org/ebooks/11",
+  "selection": "Opening from CHAPTER I, truncated to 7168 tokens with the checkpoint tokenizer; the retained UTF-8 text is authoritative for whitespace. No BOS or chat wrapper added.",
+  "source_transcription": "Body excerpt transcribed from the retrieved Gutenberg plain text, with some blank-line spacing collapsed. Not a byte-identical download of the full ebook.",
+  "token_count": 7168,
+  "selection_frozen_utc": "2026-10-04T04:31:20.521940+00:00",
+  "checkpoint_sha256": "5a1395716f7913741cc51d98581b9b1228d80987a9f7d3664106742eb06bba83",
+  "sha256": {
+    "data/alice_excerpt.txt": "9ce7926a4325fed6d1dc81f779e4479760b130e1614fb22b5f7dfbba9a9ce694",
+    "data/alice_prompt.txt": "d5522c227ab6ffe28ab2652fa90a3b96fc716ac6a4224c0242137a90ce1a2a48",
+    "data/alice_input_ids.npy": "9126243dd71f8a820f7b60821d7196ccc0e1d7a9b97330f731cedfea32e7ca8b"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "derivative_squared_exact": "20983514850795580813994310488704743096651922146761431014606/254510491999368929054147705527074861356011194913782358036459",
+  "readout_lower": "7/25",
+  "readout_gradient_screen": 0.2871350922210389,
+  "hidden_squared_exact": "63372653798093594995/70368744177664",
+  "hidden_norm_screen": 948.9887122835037,
+  "ball_radius": "1",
+  "ball_readout_upper": "373/500",
+  "weighted_row_norm_upper": "962407/65536",
+  "all_head_projection_lower": "3",
+  "joint_projection_lower": "1937/100",
+  "joint_projection_rayleigh_squared": "27703392208653601386835/73788880099221700608",
+  "norm_check_seconds": 1.9741677370000161
+}

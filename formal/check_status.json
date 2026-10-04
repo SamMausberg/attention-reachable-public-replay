@@ -1,0 +1,46 @@
+{
+  "kernel_checked": true,
+  "lean_version": "4.34.1",
+  "mathlib_revision": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "compile_command": "cd formal && lake build",
+  "axiom_check_command": "cd formal && lake env lean CheckAxioms.lean",
+  "compile_exit_code": 0,
+  "theorems_checked": 6,
+  "sorry_dependencies": false,
+  "axiom_dependencies": {
+    "shared_state": [],
+    "common_kernel_l1": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "programme_budget": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "programme_reserve_positive": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "local_single_head_tolerance": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "packing_charge": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "scope": "Partial finite-kernel L1 identity, shared-state identity, rational arithmetic",
+  "not_formalized": [
+    "analytic exponential inequalities",
+    "integer-checker implementation",
+    "full KL chain-rule theorem",
+    "PyTorch executor",
+    "packing geometry and full allocation theorem"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "alice_trace": {
+    "steps": 1024,
+    "accepted": 961,
+    "fallbacks": 63,
+    "fallback_reasons": {
+      "Rare fine-scale logit: use high-precision fallback": 35,
+      "Moment precision guard": 24,
+      "KL rejection": 4
+    },
+    "json_and_jsonl_decisions_match": true,
+    "all_accepted_steps_meet_exact_kl_cap": true
+  },
+  "paper": {
+    "source_unchanged": true,
+    "numerical_macros_unchanged": true,
+    "pages": 13,
+    "non_bibliography_text_unchanged_ignoring_whitespace_and_ligatures": true,
+    "bibliography_fixes_verified": true,
+    "clean_latex_build": true,
+    "bibliography_render_visually_checked": true,
+    "pdf_sha256": "c2054e92d985cfe426d86ba92b50b9737cdbebee65281f400776f3a6ce3da869"
+  },
+  "citation": {
+    "cff_1_2_0_schema_valid": true,
+    "author": "Samuel Mausberg"
+  },
+  "lean": {
+    "lake_build_passed": true,
+    "theorems_checked": 6,
+    "sorry_dependencies": false
+  }
+}

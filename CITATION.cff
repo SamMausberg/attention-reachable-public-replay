@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this paper, code, or replay data, please cite Samuel Mausberg's paper using the preferred citation below."
+type: software
+title: "A reachable-state separation between attention compression and its certificates"
+authors:
+  - family-names: "Mausberg"
+    given-names: "Samuel"
+date-released: 2026-10-03
+repository-code: "https://github.com/SamMausberg/attention-reachable-public-replay"
+url: "https://github.com/SamMausberg/attention-reachable-public-replay"
+preferred-citation:
+  type: unpublished
+  title: "A reachable-state separation between attention compression and its certificates"
+  authors:
+    - family-names: "Mausberg"
+      given-names: "Samuel"
+  year: 2026
+  url: "https://github.com/SamMausberg/attention-reachable-public-replay/blob/main/paper/paper.pdf"

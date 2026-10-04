@@ -1,0 +1,13 @@
+{
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "numpy": "2.3.5",
+  "torch": "2.10.0+cpu",
+  "regex": "2026.5.9",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "machine": "x86_64",
+  "torch_threads_used": 4,
+  "blas_threads_for_offline_checks": 1,
+  "cuda_available": false,
+  "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+  "pdflatex": "pdfTeX 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian)"
+}

@@ -1,0 +1,554 @@
+# Online attention memory with a causal-depth invariant and a sequence-KL budget
+
+Research attempt, 3 October 2026
+
+## Status
+
+This package contains a deterministic online attention data structure, manually
+proved real-arithmetic bounds, a runnable NumPy prototype, synthetic long-memory
+and adversarial tests, exact rational sequence-budget accounting, and partial
+Lean 4 proof sources. It does **not** establish 10x end-to-end acceleration of a
+pretrained LLM, a finite-precision production certificate, or a checked Lean
+formalization. The available runtime was CPU-only and had no Lean executable.
+
+The central construction combines a value-aware adaptive attention cover with a
+state invariant indexed by transformer **depth**, followed by a quadratic
+logit-oscillation budget for the complete generated sequence. The individual
+ideas of clustering, moment summaries, Lipschitz propagation, relative-entropy
+composition, and runtime risk ledgers are not new. Priority for this particular
+combination is not established.
+
+## 1. Contract
+
+Fix weights, tokenizer, position transformations, attention masks, normalization,
+activation functions, and an output law. The mathematics below first concerns
+real arithmetic on these fixed weights. Let P be the reference law of T output
+tokens following a fixed prompt, and Q the law produced by the approximate
+evaluator. Sampling is full softmax at a fixed positive temperature; logits in
+all bounds are already divided by that temperature. EOS can be padded with an
+identical absorbing continuation. Greedy and top-k/top-p sampling require
+additional support/margin arguments and are not covered automatically.
+
+Crucially, the conditional comparison at a history x is between the reference
+model and the approximate evaluator BOTH evaluated on x. It is not a comparison
+between hidden states on two different freely generated histories.
+
+The index prototype has no transactional rollback or serving-engine repair
+integration. These remain explicit implementation obligations.
+
+A deployed finite-precision reference is a separate contract. Its arithmetic,
+reduction order, exponential, normalization, and sampler must be specified; the
+error budget must include their differences from the analytic reference. No
+finite-precision production certificate is delivered here. Float64 screening is
+not outward-rounded interval arithmetic.
+
+## 2. Primary literature and the remaining distinction
+
+HyperAttention [1] proves fast approximate attention under explicit matrix
+regularity parameters. SubGen [2] uses online key clustering and value sampling
+for sublinear attention decoding and memory. Quest [3] uses per-page key extrema
+to select query-relevant pages. These are important algorithmic precedents, not
+complete-sequence TV certificates by themselves. A flat scan of fixed-size page
+metadata still has a linear number of pages asymptotically.
+
+Multipole Attention [4] and SPLA [5] substantially overlap clustered,
+moment-based, and exact-plus-approximate attention. Merely adding a tree or
+renaming summaries would not establish novelty. The user's earlier notes also
+already investigated moment certificates and the persistent-state problem.
+
+WitCert [7, section 6.4] explicitly distinguishes its local attention guarantee
+from downstream task quality and lists tighter multi-layer composition as an
+open problem. Runtime Observability [8, sections 5.4 and 5.5] provides typed
+memory contracts and an executable request-level failure-risk ledger, but
+explicitly does not claim a bridge across transformer depth or an end-to-end
+output distance. Its probability of a failed local certificate is not the same
+quantity as TV between generated-sequence laws. This is the most important
+scope distinction from that work; a generic request ledger is not a new idea.
+
+Attention Lipschitz analysis already has substantial prior art [9,10]. The
+conditional theorem here does not claim the invention of layerwise stability.
+It exploits the causal transformer's dependency graph to avoid incorrectly
+propagating an append-only KV error through T same-layer recurrent updates.
+
+Alman and Song [10] prove a fine-grained conditional hardness result for batched
+approximate attention, with a sharp bounded-entry regime. It is not an
+unconditional per-query lower bound with arbitrary preprocessing. The
+construction here is conditional on small certified covers and allows linear
+fallback, so it does not contradict that result.
+
+FlashAttention-4 [11] is a necessary exact-attention baseline candidate. Its
+reported B200 experiments use lengths through 32k; they do not establish its
+ranking at 1M or for every decode shape. The paper also notes that newer cuDNN
+versions reach similar performance. FlashInfer [12] is another necessary
+serving-attention candidate. Baselines must be selected by measured performance
+under the actual workload and numerical contract, not by a paper's headline.
+
+## 3. A centered attention-cover certificate
+
+Consider a single attention query. Partition its eligible stored K/V rows into
+nonempty groups g. Let m_g be group size, kbar_g and vbar_g the arithmetic means,
+and define
+
+    s_i = q^T k_i / sqrt(d),       sbar_g = q^T kbar_g / sqrt(d),
+    w_g = m_g exp(sbar_g),         Zhat = sum_g w_g,
+    pi_g = w_g / Zhat,            ahat = sum_g pi_g vbar_g.
+
+Store sound bounds
+
+    r_g >= max_{i in g} |s_i - sbar_g|,
+    rho_g >= max_{i in g} ||v_i - vbar_g||.
+
+The value norm may be any fixed norm. The implementation uses infinity norm;
+the Euclidean version can be used for the layer theorem, with the norm bridge
+charged explicitly if the implementation's certificate uses a different norm.
+
+### Theorem 1: value-aware centered cover
+
+For exact softmax attention a on these stored inputs,
+
+    ||a - ahat|| <= sum_g pi_g [
+        (exp(r_g)-1) rho_g
+        + (exp(r_g)-1-r_g) ||vbar_g-ahat|| ].                (1)
+
+This is a deterministic pointwise inequality for every query, including a query
+chosen adaptively from previous approximate outputs.
+
+**Proof.** Write delta_i=s_i-sbar_g and u_i=v_i-vbar_g within each group. Both
+sum_i delta_i and sum_i u_i vanish. Jensen gives
+
+    Z = sum_g exp(sbar_g) sum_{i in g} exp(delta_i) >= Zhat.
+
+If N is the exact weighted-value numerator, expand its centered residual:
+
+    N - ahat Z
+      = sum_g exp(sbar_g) [
+          sum_i (exp(delta_i)-1) u_i
+          + sum_i (exp(delta_i)-1-delta_i)(vbar_g-ahat) ].
+
+The omitted zero-order group terms sum to zero because ahat is the normalized
+weighted group mean. For |delta_i|<=r_g,
+
+    |exp(delta_i)-1| <= exp(r_g)-1,
+    0 <= exp(delta_i)-1-delta_i <= exp(r_g)-1-r_g.
+
+Apply the triangle inequality and divide by Z>=Zhat. This proves (1).
+
+**Nonvacuity.** If projected scores are constant within each group, all r_g=0
+and the approximation is exact even when every one of n keys has positive
+attention mass and the values vary arbitrarily. For positive radii a sufficient
+condition is
+
+    (exp(r)-1) rho + (exp(r)-1-r) D <= tau,                 (2)
+
+where r bounds all r_g, rho bounds all rho_g, and D bounds
+||vbar_g-ahat||. The leading error is r*rho + r^2*D/2. The condition is directly
+checkable from summaries and does not assume that omitted attention mass is
+small. It defines an open positive-radius regime, not just a zero-error case.
+
+### Data structure and online policy
+
+A dyadic forest stores raw K/V, counts, sums, coordinate minima/maxima, child
+pointers, and terminal-row membership. The prototype partitions by the first
+key coordinate; every coordinate still enters the query certificate. This is
+intentionally simple and is not claimed to suit actual post-RoPE geometry.
+For a node, coordinate extrema imply
+
+    r_g <= sum_j |q_j| max(kmax_gj-kbar_gj,
+                          kbar_gj-kmin_gj) / sqrt(d).
+
+Value extrema give rho_g in infinity norm. The query begins at root summaries,
+computes (1), and refines the group with the largest bound contribution. Leaves
+can become exact singleton rows. A work cap instead triggers dense attention.
+The returned error is relative to the STORED nominal inputs; dense attention
+does not repair earlier approximate hidden states.
+
+All raw entries are retained for refinement and fallback. This is sublinear
+**query work under structure**, not sublinear total memory. A deterministic
+certificate avoids the issue of a query adapting to randomness in a reused
+sketch. No empirical calibration percentile is used as a sound bound.
+
+For depth B, dimension sum Dk+v, and Nnode occupied tree nodes:
+
+    storage:       O(n Dk+v + Nnode Dk+v), Nnode <= n(B+1);
+    bulk build:    O(n log n + n B Dk+v);
+    append:        O(B Dk+v) amortized;
+    query:         O((W+R) Dk+v), plus fallback if taken.
+
+W counts ALL summary visits, including repeated frontier evaluation. R counts
+ALL raw-row reads, including repeated reads. With M root groups satisfying (2),
+W=M, R=0, and a query costs O(M Dk+v). Thus M=o(n) is an explicit sufficient
+structural regime. Merely having a small final frontier is insufficient when
+finding it requires much more work. The dependence on dimension, precision,
+query norms, occupied cells, and refinement is not hidden in a universal claim.
+
+Raw-array capacity doubling is amortized, not a tail-latency guarantee. Memory
+figures reported by logical_bytes exclude Python object/allocator overhead;
+process peak RSS is separately reported and includes benchmark temporaries.
+
+## 4. Persistent state: induction through depth, not recurrent time
+
+For a standard causal transformer, write
+
+    h_i^0 = embedding(x_i),
+    q_i^l = Q_l(h_i^{l-1}), k_i^l = K_l(h_i^{l-1}),
+    v_i^l = V_l(h_i^{l-1}),
+    h_i^l = F_l(h_i^{l-1}, attention(q_i^l, K_{<=i}^l,V_{<=i}^l)).
+
+The key stored at position j of layer l depends on the hidden state at layer
+l-1, NOT on the hidden state of position j-1 at layer l. Consequently a uniform
+bound over all positions at layer l follows from a bound over all positions at
+layer l-1. No contraction assumption along generated time is needed.
+
+### Theorem 2: causal-depth state envelope
+
+Use a consistent Euclidean norm for this statement. Suppose Q_l,K_l,V_l have
+certified Lipschitz constants aQ_l,aK_l,aV_l on their applicable enclosures;
+nominal query/key norms are at most RQ_l,RK_l; the nominal value diameter is at
+most D_l; and
+
+    ||F_l(h,a)-F_l(h',a')|| <= A_l||h-h'|| + B_l||a-a'||.
+
+The constants must hold on the complete uncertainty region, not only at one
+observed activation. Normalize, rotate, concatenate heads, project, apply the
+MLP and add residuals either inside these maps or through explicit typed norm
+bridges. For multiple heads, combine per-head error bounds in the output norm.
+Let every local attention approximation on the nominal state be at most tau_l.
+Define E_0=0 and
+
+    u_l(E) = (RK_l aQ_l E + RQ_l aK_l E
+              + aQ_l aK_l E^2) / sqrt(d),
+    E_l = A_l E_{l-1} + B_l [
+             tau_l + aV_l E_{l-1}
+             + D_l tanh(u_l(E_{l-1})/2) ].                (3)
+
+Then for any common finite token prefix, including all prompt positions and
+all generated positions,
+
+    max_i ||h_i^l - hhat_i^l|| <= E_l.                    (4)
+
+**Proof.** At layer zero the tokens and embeddings agree. Assuming (4) at layer
+l-1, every query and every cached key/value at layer l has the corresponding
+projection error. Expanding the query-key inner product gives score error
+at most u_l. Hence its score-error oscillation is at most 2u_l. The softmax
+TV lemma below gives TV at most tanh(u_l/2). Splitting value error from weight
+error bounds the exact-reference attention versus nominal dense attention by
+
+    aV_l E_{l-1} + D_l tanh(u_l/2).
+
+The approximation to nominal attention adds tau_l. Applying F_l proves (3).
+This argument applies simultaneously to every position at that layer. Induct
+on l. The resulting bound may grow badly with L, but has no artificial T-fold
+same-layer recurrent amplification.
+
+**Softmax TV lemma.** For logits differing by a vector of range r,
+TV(softmax(z),softmax(zhat)) <= tanh(r/4). To see this, the likelihood ratio has
+range [a,b] with b/a<=exp(r), and expectation one. Convexity bounds its positive
+part by (b-1)(1-a)/(b-a). Fixing k=b/a, the maximum occurs at a=1/sqrt(k), giving
+(sqrt(k)-1)/(sqrt(k)+1). Two distributions on values of diameter D have barycenter
+distance at most D times their TV, by splitting positive and negative mass.
+
+The theorem is not automatically a useful certificate for a pretrained model.
+Operator-norm products and normalized-layer enclosures can still make it
+vacuous. Certified output-sensitive affine propagation could tighten it, but
+using a measured Jacobian without a remainder bound would not be a proof.
+Position-dependent Q/K maps may be indexed by query/key position with uniform
+constants. Dual-chunk layouts are not implemented by this prototype. Truly
+recurrent/state-space memory needs another invariant; it is outside (3).
+
+### Prefill and repair obligations
+
+Equation (4) must hold during prefill as well as decode. Approximate prompt
+state cannot be silently treated as exact. Prefill consumes no generated-token
+probability budget directly, but its hidden-state errors enter (3).
+
+A possible batched prefill realization uses chunks of b known prompt tokens:
+summarize only earlier chunks and compute current-chunk causal attention
+exactly. Treat current-chunk rows as singleton groups in (1), combine their
+normalizers with the old-prefix summary normalizer, and append the chunk after
+its layer computation. This gives O(n(M+b)Dk+v) attention work per head under
+the small-cover condition, plus O(n B Dk+v) updates and ordinary dense layer
+work. It avoids claiming that millions of serial GPU launches are efficient.
+It is a design, not an implemented or benchmarked prefill kernel here.
+
+A safe fixed allocation chooses tau_l in advance so (3) always fits the output
+budget. Local dense fallback sets tau_l to zero on that call, but inherited
+state error remains. If a changing enclosure makes the output budget infeasible,
+reference replay from a valid checkpoint, or a separately proved state repair,
+is necessary. Its complete cost must be charged. Replaying the entire emitted
+prefix works in real arithmetic and does not retroactively remove earlier
+sequence divergence; it only makes subsequent conditionals exact.
+
+## 5. Complete generated sequences: the quadratic budget
+
+Let z_t(x) and zhat_t(x) be reference and approximate logits at the SAME history.
+Let r_t(x) be a sound upper bound on osc(z_t-zhat_t), the maximum minus minimum
+coordinate. Suppose the evaluator only releases tokens under a pathwise ledger
+
+    sum_{t=1}^T r_t(x_{<t})^2 <= S                        (5)
+
+on every reachable history. The choice of certificates and refinements may be
+adaptive. An exhausted ledger requires refinement, sound replay, or declining
+to claim the requested contract; merely returning a token is not allowed.
+
+### Theorem 3: sequence-level total variation
+
+    KL(Q || P) <= S/8,      TV(P,Q) <= sqrt(S)/4.           (6)
+
+**Proof.** At a history, put delta=z-zhat. Because p is the exponential tilt of
+q,
+
+    KL(q||p) = log E_q exp(delta) - E_q delta.
+
+If delta has range r, the log moment generating function F(s) has
+F''(s)=Var_{tilt(s)}(delta)<=r^2/4. This variance bound follows from support in
+an interval of width r (center at its midpoint). Integrating F'' from 0 to 1
+with weight 1-s gives the standard Hoeffding bound r^2/8. The relative-entropy
+chain rule, with expectation over Q histories, gives
+
+    KL(Q||P) = E_Q sum_t KL(q_t(.|X_{<t}) || p_t(.|X_{<t})) <= S/8.
+
+Pinsker gives TV<=sqrt(KL/2), proving (6). These information-theoretic steps
+are standard, not a priority claim. Adaptivity is handled by the pathwise
+certificate and chain rule, not by pretending the queries are independent.
+
+For epsilon=10^-3 and T=1024, sufficient constants are
+
+    S <= 16 epsilon^2 = 1.6e-5,
+    r_t <= 1/8000 = 1.25e-4 for every t,
+    KL(q_t||p_t) <= 1.953125e-9 for every t.
+
+An absolute infinity-norm logit error of at most 6.25e-5 suffices since range is
+at most twice that error. In contrast, a direct sum of per-token TV errors
+would allocate approximately 9.77e-7 per token. These are different sufficient
+bounds, not empirical claims about allowable distortion in a specific model.
+
+For a linear output head W and hidden-state error E_L, use
+
+    r_t <= C E_L,    C = max_{i,j} ||W_i-W_j||_*,           (7)
+
+with final normalization and temperature included. The pairwise expression
+removes the unobservable common logit shift. A computable upper bound is twice
+the largest dual norm of a row minus any fixed row center. The entire model
+is certified only when (1), (3), all norm conversions and numerical terms, and
+(7) fit (5). Their numerical validity is not inferred from task accuracy.
+
+## 6. Implemented experiments and all important failures
+
+Experiments use Python 3.13.5, NumPy 2.3.5, float64, and a single BLAS thread.
+The dense comparison is NumPy softmax attention, not the fastest LLM baseline.
+Seeds, complete outputs, dimensions and scope are in results/*.json. These are
+single-process measurements, not confidence intervals over independent runs.
+The synthetic data generation itself is common benchmark-input preparation,
+not an included model computation.
+
+### Numerical local checks
+
+Across 1,000 random datasets and 6,000 bound comparisons, there were zero
+violations at a declared 2e-12 floating-point test slack. The largest observed
+error/bound ratio was 0.9661. Of 3,000 adaptive queries, 2,692 fell back to dense
+attention. Append-vs-bulk comparisons also passed. This is testing, not proof
+of outward rounding or exhaustive correctness.
+
+### Favorable long-memory regime
+
+The inputs have 32 planted clusters with small independent key/value noise
+(standard deviation 3e-5), key dimension 8 and value dimension 4. Both context
+sizes were run for 1,024 queries, with 1,024 online appends charged:
+
+| Rows | Dense median/query | Cover median/query | Query-only ratio | Ratio including index build, appends and all queries |
+|---|---:|---:|---:|---:|
+| 128,000 | 0.634 ms | 0.388 ms | 1.63x | 1.44x |
+| 1,000,000 | 7.411 ms | 0.585 ms | 12.66x | 6.26x |
+
+All queries used 32 root summaries and zero raw-row reads. The million-row
+build cost 0.660 s and the updates 0.0216 s. The largest observed attention
+error was 1.22e-12; the largest numerical bound was 2.69e-8, against tolerance
+1e-6. Logical payload was 96,136,448 bytes; whole-process peak RSS was about
+433 MB, including dense inputs and scratch. These dimensions and extremely
+favorable planted geometry do not represent measured transformer geometry.
+
+The shorter 64-query million-row experiment is retained: 12.82x query speedup
+fell to 0.68x after setup and updates. Amortized-1024 fields in the original
+64-query JSONs are explicitly MODELS, not measured 1024-query results. The
+separate *_1024.json files contain actual 1024-query runs.
+
+These lifecycle ratios are for the ATTENTION-MEMORY OPERATOR. They exclude
+transformer prefill, weights, projections, MLPs, logits, sampling, production
+certification, graph scheduling and global state repair. They are not
+end-to-end inference speedups.
+
+### Dispersion failure and work-cap refinement
+
+Increasing cluster noise to 0.1 made every tested query fall back. The initial
+row-fraction work cap was inappropriate for this Python implementation:
+median 281.2 ms versus 0.843 ms dense, or about 334x slower. The gate was
+numerically accurate but operationally disastrous. This failure is retained.
+
+An added 64-unit summary/raw inspection cap reduced a separate 64-query run to
+1.217 ms versus 0.757 ms dense, still only 0.62x query speed and 0.32x including
+setup. The original benign runs and original dispersion run use the default
+fraction cap; the optional absolute cap is recorded in the new result. Cheap
+fallback is not demonstrated merely by calling a fallback function. A production
+implementation needs a calibrated hardware cost cap and dispatch policy.
+
+### Adversarial delayed retrieval
+
+For n=128,000, every key has the same tree-routing coordinate. One needle has
+score log(n-1)+12 along another coordinate and value 1; all distractors have
+value zero. A first zero query is harmless. The next query switches to the
+needle direction. This specifically attacks assuming old query relevance
+persists, or ignoring coordinates unused for tree partitioning.
+
+The unguarded summary returns 7.8125e-6; dense attention returns
+0.9999938558, an error of 0.9999860433. The numerical certificate becomes huge,
+rejects the shortcut, and dense fallback returns the reference result. It reads
+all 128,000 rows and is slower. This is an operator-level adversarial retrieval
+test, not a pretrained-model retrieval result or a universal attack defense.
+
+### Full-feedback finite model
+
+A frozen two-layer nonlinear tanh causal-attention network with a binary
+vocabulary is included. At each common history, both models are recomputed
+through the complete prompt and generated prefix, so approximate KV feedback
+is not omitted. All 256 sequences through eight output steps were enumerated.
+The observed sequence TV was approximately 6.62e-10. A manually derived
+state/softmax envelope bounds eight-step TV by 7.08e-5 and gives a uniform
+1024-step analytic bound of 8e-4. The positive local tolerance was 1.74279e-4;
+3,068 attention calls had nonzero approximation error. The model is frozen but
+is NOT a pretrained LLM. The bound is loose and the floating-point enumeration
+is not a certified probability calculation. Reported KL values near 1e-16 are
+at the float64 noise floor and should not be interpreted as precise evidence.
+
+The rational ledger independently admits exactly 1,024 charges of range 1/8000
+and rejects the next equal charge. Its arithmetic is exact, but supplied
+range certificates remain an external proof obligation.
+
+## 7. Frozen-model decisive experiment: specified, not executed
+
+The proposed reference checkpoint is Qwen/Qwen2.5-7B-Instruct-1M at revision
+49d7103d61e30d68e8cfdea8c419f3f39e5b9c15 [14,15], not a moving `main` revision.
+The model assets were NOT downloaded or benchmarked. Per-file hashes and an
+engine digest remain missing. The config has 28 layers, 28 query heads, four
+KV heads, hidden size 3584, and maximum positions 1,010,000. Its dual-chunk
+attention configuration must be pinned too: it is not legitimate to silently
+change its position transformations or call an optional deployment sparsifier
+part of dense reference attention. Define the dense reference with the pinned
+position semantics; treat additional token-dropping methods as competitors
+requiring their own error accounting.
+
+The planned numerical law is temperature-one full softmax, fixed tokenizer and
+chat template, no top-k/top-p, and a declared reference arithmetic. Candidate
+hardware is one B200 at concurrency one; higher-concurrency experiments need
+the same fitting device set for both methods. The raw BF16 KV arithmetic at
+one million tokens is 2*28*4*128*2*1,000,000 = 57,344,000,000 bytes, excluding
+weights, index, scratch and new tokens. This calculation is not an assertion
+that an untested engine fits or has a particular latency.
+
+Use 128,000, 256,000, 512,000 and 1,000,000 prompt tokens, followed by 1,024
+generated tokens, with cold request caches. Separate code, prose, repetitive
+logs, and adversarial retrieval; freeze prompts and seeds before tuning. Report
+per-stratum results, not only a favorable average. Compare to the fastest
+measured compatible combination of current FA4, cuDNN and FlashInfer kernels
+inside a pinned engine; include any faster certified approximate or compatible
+speculative baseline. Exact attention in the algorithmic sense is not itself
+proof of the required finite-precision sequence distance.
+
+The smallest decisive gate is a real-post-position-encoding trace study.
+`trace_gate.py` accepts an NPZ K/V/Q snapshot and measures the actual summary
+visits, raw reads, error screening, fallback and construction. It does not
+extract model traces or certify state. Run it first on all layers/heads at
+128k while deriving sound (3)/(7) coefficients. If the required tolerances
+force nearly dense work, reject this geometry/certificate before kernel work.
+Teacher-forced reference traces can falsify a proposal, but successful traces
+do not establish behavior under approximate generation. The second gate must
+shadow reference conditionals on the approximate evaluator's emitted histories,
+and include every approximate prefill state.
+
+For real retrieval, test delayed address changes, alias chains in distant
+pages, many high-score decoys, diffuse signed values, and position-boundary
+changes across dual chunks. Define events such as successful retrieval at a
+specified output slot. An event-probability gap greater than 1e-3 falsifies the
+TV claim; unchanged retrieval accuracy cannot prove the claim. Paired seeds
+alone do not bound TV. Sampling tests are diagnostics; the upper guarantee
+comes from sound compositional certificates.
+
+### Complete cost criterion
+
+Let f be the fraction of best-baseline time left untouched by the algorithm,
+s the speed factor for the rest, and h all new overhead normalized by baseline
+time. Then
+
+    speedup <= 1 / [f + (1-f)/s + h].
+
+Tenfold acceleration requires f+h<0.1 even with unbounded acceleration of the
+changed part. If prefill is unchanged, it belongs in f. A decode-only result
+cannot meet the target when prefill alone exceeds 10% of baseline time. Charge
+model prefill, index construction, every append, all metadata reads, failed
+certificate work, dense fallback, state replay, output-head work, sampler,
+allocation, synchronization, transfers and peak memory. Time from request
+arrival with a cold KV cache through token 1,024. Report model loading and
+compilation separately with an explicit amortization rule shared by both sides.
+
+## 8. Formalization and audit
+
+`formal/Core.lean` states the dependency-depth induction and integer ledger
+admission lemmas. `formal/Bounds.lean` states the centered-ratio algebra, the
+last Pinsker/chain-budget arithmetic step, and exact 1024-token constants.
+There are no `sorry` proof placeholders or user-declared axioms in these files.
+However, source inspection is not kernel verification. The attempted check
+returned exit code 127: Lean was not installed. The log is shipped. The
+analytic attention and entropy proofs, the floating-point implementation, and
+the full model state invariant are NOT a completed formal development.
+
+Current evidence supports: a conditional real-arithmetic construction; a
+nonempty useful structural regime; working numerical operator and full-feedback
+toy prototypes; exact rational bookkeeping; and measured failures as well as
+successes. It does not support: novelty priority, real-LLM certifiable geometry,
+a production sequence-TV certificate, any GPU performance claim, or the target
+10x end-to-end result. The key unresolved empirical question is whether real
+post-position-encoding memories admit sufficiently cheap value-aware covers
+at the tolerances imposed by a nonvacuous whole-network output certificate.
+
+## References (primary sources)
+
+[1] HyperAttention: Long-context Attention in Near-Linear Time. arXiv:2310.05869.
+https://arxiv.org/abs/2310.05869
+
+[2] SubGen: Token Generation in Sublinear Time and Memory. arXiv:2402.06082.
+https://arxiv.org/abs/2402.06082
+
+[3] Quest: Query-Aware Sparsity for Efficient Long-Context LLM Inference.
+arXiv:2406.10774. https://arxiv.org/abs/2406.10774
+
+[4] Multipole Attention for Efficient Long Context Reasoning. arXiv:2506.13059.
+https://arxiv.org/abs/2506.13059
+
+[5] SPLA: Block Sparse Plus Linear Attention for Long Context Modeling.
+arXiv:2601.22379. https://arxiv.org/abs/2601.22379
+
+[6] WitCert: Sound Runtime Risk Observability and Gating for KV-Cache
+Quantization. arXiv:2607.28699v3. https://arxiv.org/html/2607.28699v3
+
+[7] Runtime Observability for Heterogeneous Attention Memory.
+arXiv:2608.05863v2. https://arxiv.org/html/2608.05863v2
+
+[8] How Smooth Is Attention? arXiv:2312.14820.
+https://arxiv.org/abs/2312.14820
+
+[9] Pay Attention to Attention Distribution: A New Local Lipschitz Bound for
+Transformers. arXiv:2507.07814. https://arxiv.org/abs/2507.07814
+
+[10] Fast Attention Requires Bounded Entries. arXiv:2302.13214.
+https://arxiv.org/abs/2302.13214
+
+[11] FlashAttention-4: Algorithm and Kernel Pipelining Co-Design for Asymmetric
+Hardware Scaling. arXiv:2603.05451. https://arxiv.org/html/2603.05451v1
+
+[12] FlashInfer: Efficient and Customizable Attention Engine for LLM Inference
+Serving. arXiv:2501.01005. https://arxiv.org/abs/2501.01005
+
+[13] Qwen2.5-1M Technical Report. arXiv:2501.15383.
+https://arxiv.org/abs/2501.15383
+
+[14] Official checkpoint revision and configuration.
+https://huggingface.co/Qwen/Qwen2.5-7B-Instruct-1M/commit/49d7103d61e30d68e8cfdea8c419f3f39e5b9c15

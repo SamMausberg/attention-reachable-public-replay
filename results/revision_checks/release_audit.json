@@ -1,0 +1,4460 @@
+{
+  "checks_passed": 1101,
+  "alice": {
+    "tokens": 1024,
+    "prompt_tokens": 7168,
+    "prompt_source": "data/alice_input_ids.npy",
+    "singletons": 256,
+    "accepted": 961,
+    "fallbacks": 63,
+    "accepted_nonzero_logit_changes": 961,
+    "load_seconds": 0.4631889689999866,
+    "prefill_seconds": 15.345032317999994,
+    "decode_all_overheads_seconds": 251.19405349600004,
+    "total_with_load_seconds": 267.00618442999996,
+    "phase_seconds": {
+      "lower_layers_and_updates": 121.57719016999914,
+      "sample": 3.544871664001164,
+      "candidate_terminal": 36.97742144399865,
+      "reference_terminal": 12.271339437000961,
+      "law_and_check": 72.94907735199916
+    },
+    "sum_accepted_KL_bounds_screen": 1.7734993908605548e-07,
+    "candidate_tv_screen_quantiles": [
+      5.655273059839339e-09,
+      5.232483186714772e-06,
+      1.1156401950035596e-05,
+      2.0040890063674163e-05,
+      3.200057295760258e-05
+    ],
+    "peak_rss_KiB": 1599496,
+    "uniform_per_token_KL_budget": "1/600000000",
+    "arithmetic": "Binary32 reference/candidate logits; 96-bit integer exponent intervals; integer moment admission; 64-bit integer sampler",
+    "reference": "Full FP32 attention; final prompt layer queried only at final prompt position; no pruning",
+    "checkpoint_sha256": "5a1395716f7913741cc51d98581b9b1228d80987a9f7d3664106742eb06bba83"
+  },
+  "baseline_alice": {
+    "trace": "alice",
+    "tokens": 1024,
+    "same_tokens": 69,
+    "first_different_token": 45,
+    "load_seconds": 0.46842917100002524,
+    "prefill_seconds": 15.242769370000019,
+    "decode_seconds": 169.25075488000004,
+    "total_with_load_seconds": 184.96216781400005,
+    "peak_rss_KiB": 1585876
+  },
+  "fallback_breakdown": {
+    "Rare fine-scale logit: use high-precision fallback": 35,
+    "Moment precision guard": 24,
+    "KL cap": 4
+  },
+  "unchanged_math_blocks": 30,
+  "immutable_data_and_record_files": 56,
+  "checks": [
+    {
+      "check": "Replacement token count is 7168",
+      "passed": true
+    },
+    {
+      "check": "Execution used the pinned replacement tokens",
+      "passed": true
+    },
+    {
+      "check": "Both executions completed 1024 outputs",
+      "passed": true
+    },
+    {
+      "check": "Counts reconcile",
+      "passed": true
+    },
+    {
+      "check": "Saved generated token array agrees with decisions",
+      "passed": true
+    },
+    {
+      "check": "Four KL rejections",
+      "passed": true
+    },
+    {
+      "check": "59 precision rejections",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 0 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 2 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 3 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 4 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 6 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 7 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 8 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 9 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 10 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 11 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 12 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 13 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 14 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 15 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 16 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 17 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 18 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 19 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 20 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 21 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 22 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 23 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 25 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 26 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 28 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 29 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 30 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 31 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 32 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 33 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 34 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 35 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 36 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 37 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 39 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 40 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 41 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 43 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 44 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 45 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 46 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 47 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 48 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 49 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 50 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 51 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 52 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 53 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 54 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 55 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 56 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 57 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 58 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 59 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 60 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 61 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 62 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 63 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 64 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 65 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 66 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 67 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 68 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 69 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 70 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 71 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 72 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 73 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 74 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 75 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 76 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 78 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 79 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 80 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 81 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 82 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 83 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 84 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 85 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 86 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 87 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 88 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 89 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 91 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 92 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 93 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 94 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 95 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 96 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 97 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 98 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 99 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 100 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 101 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 102 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 103 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 104 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 105 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 106 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 107 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 108 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 109 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 110 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 111 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 112 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 113 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 114 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 115 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 116 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 117 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 118 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 119 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 120 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 121 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 122 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 123 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 124 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 125 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 126 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 127 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 128 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 129 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 130 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 131 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 132 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 133 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 134 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 135 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 136 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 138 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 139 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 140 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 141 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 142 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 143 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 144 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 145 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 146 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 147 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 148 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 149 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 150 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 151 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 152 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 154 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 155 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 156 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 157 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 158 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 159 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 160 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 161 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 162 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 163 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 164 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 165 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 166 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 167 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 168 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 169 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 170 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 171 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 172 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 174 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 176 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 177 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 178 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 179 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 180 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 181 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 182 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 183 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 184 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 185 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 186 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 188 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 189 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 190 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 191 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 192 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 193 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 194 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 195 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 196 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 197 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 198 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 199 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 200 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 201 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 202 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 203 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 204 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 206 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 207 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 208 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 210 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 211 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 212 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 213 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 214 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 215 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 216 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 217 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 218 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 219 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 220 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 221 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 222 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 223 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 224 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 225 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 226 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 227 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 228 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 229 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 230 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 231 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 232 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 234 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 235 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 236 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 237 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 238 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 239 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 240 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 241 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 242 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 243 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 244 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 245 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 246 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 247 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 248 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 249 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 251 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 252 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 253 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 254 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 255 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 256 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 257 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 258 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 259 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 260 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 261 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 262 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 263 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 266 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 267 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 268 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 269 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 270 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 271 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 272 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 273 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 274 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 276 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 277 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 278 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 279 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 280 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 281 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 282 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 283 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 284 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 285 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 286 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 287 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 288 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 290 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 291 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 292 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 293 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 294 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 295 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 296 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 297 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 298 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 299 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 300 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 301 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 303 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 304 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 305 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 307 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 308 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 309 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 310 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 311 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 312 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 313 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 314 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 315 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 316 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 317 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 318 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 319 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 320 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 321 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 322 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 323 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 324 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 325 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 326 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 327 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 328 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 329 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 330 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 331 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 333 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 334 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 335 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 336 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 337 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 338 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 339 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 340 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 341 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 342 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 343 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 344 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 345 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 346 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 347 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 348 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 349 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 350 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 351 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 352 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 353 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 354 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 355 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 356 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 357 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 358 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 359 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 360 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 361 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 362 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 363 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 365 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 366 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 367 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 368 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 369 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 370 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 371 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 372 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 373 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 374 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 375 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 376 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 377 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 378 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 379 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 380 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 381 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 382 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 383 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 384 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 385 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 386 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 387 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 388 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 389 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 390 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 391 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 392 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 393 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 394 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 395 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 396 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 397 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 398 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 399 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 400 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 401 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 402 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 404 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 405 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 406 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 407 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 408 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 409 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 410 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 411 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 412 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 413 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 414 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 415 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 416 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 417 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 418 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 419 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 420 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 421 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 422 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 423 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 424 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 425 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 426 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 428 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 429 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 430 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 431 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 432 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 433 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 434 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 435 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 436 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 437 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 438 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 439 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 440 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 441 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 442 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 443 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 444 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 445 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 446 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 447 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 448 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 449 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 450 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 451 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 452 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 453 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 454 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 456 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 457 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 458 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 459 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 460 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 461 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 462 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 463 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 464 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 465 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 466 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 467 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 468 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 470 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 471 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 472 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 473 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 474 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 475 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 476 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 478 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 479 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 480 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 481 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 482 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 483 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 484 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 485 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 486 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 487 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 488 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 489 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 490 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 491 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 492 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 493 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 494 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 495 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 496 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 497 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 498 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 499 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 501 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 502 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 503 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 504 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 505 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 506 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 507 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 508 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 509 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 510 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 511 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 512 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 514 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 515 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 516 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 517 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 519 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 520 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 521 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 523 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 524 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 525 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 526 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 527 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 528 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 529 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 530 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 531 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 532 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 533 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 534 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 535 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 536 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 537 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 538 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 539 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 540 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 541 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 542 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 543 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 544 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 545 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 546 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 547 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 548 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 549 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 550 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 551 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 553 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 554 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 555 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 556 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 557 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 558 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 559 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 560 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 561 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 562 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 563 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 564 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 565 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 566 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 567 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 568 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 569 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 570 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 571 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 572 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 575 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 576 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 577 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 578 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 579 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 580 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 581 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 582 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 583 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 584 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 585 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 586 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 587 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 588 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 589 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 590 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 591 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 592 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 593 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 594 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 595 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 597 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 598 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 599 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 600 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 601 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 602 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 604 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 606 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 608 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 609 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 610 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 611 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 612 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 613 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 614 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 615 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 616 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 617 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 618 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 619 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 620 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 621 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 622 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 623 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 624 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 625 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 626 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 627 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 628 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 629 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 630 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 632 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 633 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 634 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 635 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 636 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 637 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 638 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 639 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 640 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 641 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 642 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 643 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 644 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 645 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 646 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 647 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 649 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 650 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 651 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 652 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 653 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 654 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 655 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 656 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 657 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 658 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 659 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 660 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 661 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 662 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 663 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 664 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 665 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 666 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 667 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 668 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 669 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 670 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 671 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 672 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 673 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 674 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 675 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 676 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 677 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 678 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 679 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 680 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 681 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 682 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 683 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 684 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 685 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 686 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 687 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 688 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 689 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 690 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 691 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 692 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 693 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 694 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 695 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 696 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 697 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 698 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 699 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 700 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 701 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 703 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 704 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 706 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 707 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 708 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 709 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 710 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 711 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 712 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 713 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 714 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 715 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 716 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 717 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 718 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 719 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 720 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 721 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 722 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 723 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 724 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 725 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 726 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 727 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 728 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 729 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 730 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 731 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 732 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 733 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 734 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 735 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 736 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 737 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 739 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 740 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 741 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 743 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 744 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 745 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 746 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 748 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 749 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 750 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 751 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 752 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 753 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 754 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 755 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 757 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 758 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 759 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 760 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 761 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 762 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 763 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 764 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 765 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 766 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 768 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 769 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 770 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 771 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 772 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 773 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 774 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 776 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 777 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 779 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 780 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 781 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 782 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 783 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 784 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 785 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 786 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 787 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 788 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 790 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 791 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 792 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 793 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 794 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 795 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 796 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 797 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 798 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 799 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 800 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 801 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 802 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 803 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 804 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 805 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 806 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 807 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 808 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 809 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 810 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 811 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 812 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 813 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 814 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 815 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 816 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 817 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 818 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 819 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 820 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 821 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 822 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 824 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 825 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 826 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 827 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 829 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 830 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 831 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 832 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 833 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 834 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 835 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 836 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 837 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 838 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 839 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 840 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 841 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 842 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 843 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 844 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 845 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 846 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 847 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 848 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 849 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 850 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 851 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 852 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 853 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 854 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 855 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 856 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 857 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 858 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 859 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 860 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 861 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 862 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 863 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 864 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 865 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 866 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 867 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 868 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 869 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 870 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 871 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 873 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 874 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 875 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 876 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 877 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 878 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 879 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 880 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 881 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 882 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 883 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 884 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 885 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 886 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 887 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 888 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 889 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 890 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 891 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 893 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 894 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 895 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 896 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 897 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 898 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 899 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 900 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 901 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 902 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 903 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 904 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 905 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 906 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 907 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 908 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 909 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 910 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 911 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 912 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 914 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 915 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 916 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 917 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 918 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 919 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 920 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 921 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 922 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 923 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 924 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 925 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 926 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 927 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 928 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 929 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 931 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 932 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 933 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 934 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 935 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 936 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 937 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 938 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 939 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 940 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 941 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 942 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 943 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 944 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 945 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 946 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 947 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 948 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 949 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 950 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 951 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 952 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 954 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 955 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 957 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 958 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 959 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 960 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 961 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 962 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 963 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 964 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 965 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 966 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 967 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 969 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 970 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 971 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 972 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 973 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 974 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 976 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 977 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 978 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 979 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 980 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 981 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 982 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 983 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 984 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 985 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 986 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 987 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 988 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 989 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 991 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 992 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 993 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 994 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 995 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 996 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 997 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 998 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 999 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1000 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1001 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1002 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1003 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1004 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1005 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1006 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1007 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1008 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1009 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1010 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1011 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1012 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1013 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1014 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1015 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1016 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1017 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1018 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1019 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1020 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1021 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1022 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "Admitted step 1023 respects the exact KL cap",
+      "passed": true
+    },
+    {
+      "check": "All random words are within the 64-bit domain",
+      "passed": true
+    },
+    {
+      "check": "Length and group budgets match each generated index",
+      "passed": true
+    },
+    {
+      "check": "Dense-control token agreement count matches saved arrays",
+      "passed": true
+    },
+    {
+      "check": "Dense-control first difference matches saved arrays",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 0 reference hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 0 candidate hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 0 emitted token follows stored count law",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 1 reference hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 1 candidate hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 1 emitted token follows stored count law",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 2 reference hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 2 candidate hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 2 emitted token follows stored count law",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 3 reference hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 3 candidate hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 3 emitted token follows stored count law",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 31 reference hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 31 candidate hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 31 emitted token follows stored count law",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 63 reference hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 63 candidate hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 63 emitted token follows stored count law",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 127 reference hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 127 candidate hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 127 emitted token follows stored count law",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 255 reference hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 255 candidate hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 255 emitted token follows stored count law",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 511 reference hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 511 candidate hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 511 emitted token follows stored count law",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 767 reference hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 767 candidate hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 767 emitted token follows stored count law",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 1023 reference hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 1023 candidate hash",
+      "passed": true
+    },
+    {
+      "check": "Snapshot 1023 emitted token follows stored count law",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/all_token_ids.npy",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/baseline_technical_replay_tokens.npy",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/clique_indices.npz",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/hidden_tail_reference.npy",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/last_fp32.npz",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/logits_bf16_attention.npy",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/logits_bf16_attention_counts.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/logits_fp32.npy",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/logits_fp32_counts.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/logits_fp64_attention.npy",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/logits_fp64_attention_counts.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/logits_scores_0.npy",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/logits_scores_0_counts.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/logits_scores_256.npy",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/logits_scores_256_counts.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/logits_scores_64.npy",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/logits_scores_64_counts.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/logits_tail_reference.npy",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/logits_tail_reference_counts.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/logits_time_0.npy",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/logits_time_0_counts.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/norm_witness.npz",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/prompt.txt",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/reachable_norm_witness.npz",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/technical_replay_prompt_ids.npy",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/technical_replay_step0000.npz",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/technical_replay_step0001.npz",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/technical_replay_step0002.npz",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/technical_replay_step0003.npz",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/technical_replay_step0031.npz",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/technical_replay_step0063.npz",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/technical_replay_step0127.npz",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/technical_replay_step0255.npz",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/technical_replay_step0511.npz",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/technical_replay_step0767.npz",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/technical_replay_step1023.npz",
+      "passed": true
+    },
+    {
+      "check": "Unchanged data/technical_replay_tokens.npy",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/arithmetic_tests.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/baseline_technical_replay.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/baseline_technical_replay.log",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/compact_replay.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/compact_replay.log",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/interventions.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/interventions.log",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/probe_bf16_attention.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/probe_bf16_attention.log",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/probe_fp32.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/probe_fp32.log",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/probe_fp64_attention.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/probe_fp64_attention.log",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/reachable.log",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/reachable_norm.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/reachable_packing.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/technical_replay.json",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/technical_replay.jsonl",
+      "passed": true
+    },
+    {
+      "check": "Unchanged results/technical_replay.log",
+      "passed": true
+    },
+    {
+      "check": "Unchanged executed source rollout.py",
+      "passed": true
+    },
+    {
+      "check": "Unchanged executed source baseline.py",
+      "passed": true
+    },
+    {
+      "check": "Unchanged executed source smollm.py",
+      "passed": true
+    },
+    {
+      "check": "Unchanged executed source fastlaw.py",
+      "passed": true
+    },
+    {
+      "check": "Unchanged executed source law96.cpp",
+      "passed": true
+    },
+    {
+      "check": "Unchanged executed source categorical.py",
+      "passed": true
+    },
+    {
+      "check": "Unchanged executed source gguf_reader.py",
+      "passed": true
+    },
+    {
+      "check": "Unchanged executed source separation.cpp",
+      "passed": true
+    },
+    {
+      "check": "Alice figure equals new trace",
+      "passed": true
+    },
+    {
+      "check": "Technical figure remains byte-identical",
+      "passed": true
+    },
+    {
+      "check": "Unchanged figure joint.dat",
+      "passed": true
+    },
+    {
+      "check": "Unchanged figure tv.dat",
+      "passed": true
+    },
+    {
+      "check": "Rejected marker data use only the two retained traces",
+      "passed": true
+    },
+    {
+      "check": "Unchanged numerical macro TechAccept",
+      "passed": true
+    },
+    {
+      "check": "Unchanged numerical macro LitAccept",
+      "passed": true
+    },
+    {
+      "check": "Unchanged numerical macro TechFallback",
+      "passed": true
+    },
+    {
+      "check": "Unchanged numerical macro LitFallback",
+      "passed": true
+    },
+    {
+      "check": "Unchanged numerical macro TechPrefill",
+      "passed": true
+    },
+    {
+      "check": "Unchanged numerical macro TechDecode",
+      "passed": true
+    },
+    {
+      "check": "Unchanged numerical macro TechTotal",
+      "passed": true
+    },
+    {
+      "check": "Unchanged numerical macro TechRSS",
+      "passed": true
+    },
+    {
+      "check": "Unchanged numerical macro PackingSeconds",
+      "passed": true
+    },
+    {
+      "check": "Unchanged numerical macro TechLower",
+      "passed": true
+    },
+    {
+      "check": "Unchanged numerical macro TechRef",
+      "passed": true
+    },
+    {
+      "check": "Unchanged numerical macro TechCand",
+      "passed": true
+    },
+    {
+      "check": "Unchanged numerical macro TechCheck",
+      "passed": true
+    },
+    {
+      "check": "Unchanged numerical macro TechBase",
+      "passed": true
+    },
+    {
+      "check": "New checked total macro",
+      "passed": true
+    },
+    {
+      "check": "New dense total macro",
+      "passed": true
+    },
+    {
+      "check": "Same sampled acceptance count was freshly obtained",
+      "passed": true
+    },
+    {
+      "check": "New checked execution is slower than its matched dense control",
+      "passed": true
+    },
+    {
+      "check": "All 30 displayed mathematical expressions unchanged",
+      "passed": true
+    },
+    {
+      "check": "The unit-gain convention is explicit",
+      "passed": true
+    },
+    {
+      "check": "The incorrect residual-gain relaxation is removed",
+      "passed": true
+    },
+    {
+      "check": "Theorem 3 defines the 64 subscript",
+      "passed": true
+    },
+    {
+      "check": "The attribution correction note is removed",
+      "passed": true
+    },
+    {
+      "check": "Wei and Liu gap cited at its source section",
+      "passed": true
+    },
+    {
+      "check": "AI-assistance acknowledgement preserved",
+      "passed": true
+    },
+    {
+      "check": "No legacy second-prompt data or result files remain",
+      "passed": true
+    },
+    {
+      "check": "No full checkpoint or font files bundled",
+      "passed": true
+    }
+  ]
+}

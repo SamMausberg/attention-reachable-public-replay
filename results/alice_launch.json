@@ -1,0 +1,18 @@
+{
+  "command": [
+    "python",
+    "code/rollout.py",
+    "--model",
+    "/mnt/data/SmolLM2-135M-Instruct.gguf.bin",
+    "--prompt-ids",
+    "data/alice_input_ids.npy",
+    "--tokens",
+    "1024",
+    "--singletons",
+    "256",
+    "--tag",
+    "alice"
+  ],
+  "pid": 717,
+  "started_utc": "2026-10-04T04:31:39.611442+00:00"
+}

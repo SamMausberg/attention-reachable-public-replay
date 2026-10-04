@@ -1,0 +1,7 @@
+{
+  "first_intervention_sampler_checks_unchanged": true,
+  "all_first_intervention_distribution_comparisons_unchanged": true,
+  "eleven_technical_moment_checks_unchanged": true,
+  "additional_alice_moment_checks": 10,
+  "additional_alice_guard_and_served_law_checks": 1
+}

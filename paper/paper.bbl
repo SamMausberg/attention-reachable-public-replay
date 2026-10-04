@@ -1,0 +1,122 @@
+\begin{thebibliography}{17}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Alman and Song(2023)]{alman}
+Josh Alman and Zhao Song.
+\newblock Fast attention requires bounded entries.
+\newblock arXiv:2302.13214, 2023.
+
+\bibitem[{bartowski}(2024)]{ggufrelease}
+{bartowski}.
+\newblock {SmolLM2-135M-Instruct-Q8\_0.gguf}.
+\newblock Hugging Face checkpoint release, 2024.
+\newblock URL
+  \url{https://huggingface.co/bartowski/SmolLM2-135M-Instruct-GGUF}.
+\newblock Published SHA-256 matched byte for byte; full digest in
+  Appendix~\ref{app:artifact}.
+
+\bibitem[Ben~Allal et~al.(2025)Ben~Allal, Lozhkov, Bakouch, et~al.]{smollm}
+Loubna Ben~Allal, Anton Lozhkov, Elie Bakouch, et~al.
+\newblock {SmolLM2}: When smol goes big: Data-centric training of a small
+  language model.
+\newblock arXiv:2502.02737, 2025.
+
+\bibitem[Calver(2026)]{calver}
+Dean Calver.
+\newblock Runtime-certified bounded-error quantized attention.
+\newblock arXiv:2605.20868v1, 2026.
+
+\bibitem[Carroll(1865)]{alice}
+Lewis Carroll.
+\newblock {A}lice's {A}dventures in {W}onderland.
+\newblock Project Gutenberg ebook 11, 1865.
+\newblock URL \url{https://www.gutenberg.org/ebooks/11}.
+\newblock Public-domain text; opening excerpt retained with token and text
+  digests in the replay bundle.
+
+\bibitem[Cover and Thomas(2006)]{cover2006}
+Thomas~M. Cover and Joy~A. Thomas.
+\newblock \emph{Elements of Information Theory}.
+\newblock Wiley, second edition, 2006.
+\newblock \doi{10.1002/047174882X}.
+
+\bibitem[Hoeffding(1963)]{hoeffding1963}
+Wassily Hoeffding.
+\newblock Probability inequalities for sums of bounded random variables.
+\newblock \emph{Journal of the American Statistical Association}, 58\penalty0
+  (301):\penalty0 13--30, 1963.
+\newblock \doi{10.1080/01621459.1963.10500830}.
+
+\bibitem[Hooper et~al.(2025)Hooper, Zhao, Manolache, Kim, Mahoney, Shao,
+  Keutzer, and Gholami]{multipole}
+Coleman Hooper, Sebastian Zhao, Luca Manolache, Sehoon Kim, Michael~W. Mahoney,
+  Yakun~Sophia Shao, Kurt Keutzer, and Amir Gholami.
+\newblock Multipole attention for efficient long context reasoning.
+\newblock arXiv:2506.13059v2, 2025.
+
+\bibitem[Huang et~al.(2021)Huang, Zhang, Shi, Kolter, and Anandkumar]{local}
+Yujia Huang, Huan Zhang, Yuanyuan Shi, J.~Zico Kolter, and Anima Anandkumar.
+\newblock Training certifiably robust neural networks with efficient local
+  {L}ipschitz bounds.
+\newblock arXiv:2111.01395, 2021.
+
+\bibitem[{HuggingFaceTB}(2024)]{smollmcard}
+{HuggingFaceTB}.
+\newblock {SmolLM2-135M-Instruct}: Model card and configuration.
+\newblock Hugging Face model release, 2024.
+\newblock URL \url{https://huggingface.co/HuggingFaceTB/SmolLM2-135M-Instruct}.
+\newblock Configuration and 8,192-token context checked 3 October 2026.
+
+\bibitem[Kang et~al.(2026)Kang, Yun, Kim, and Seo]{riskkv}
+Beomgu Kang, SoJin Yun, Hojoon Kim, and Hyunseok Seo.
+\newblock Risk-controlled {KV}-cache eviction: From memory budgets to risk
+  targets.
+\newblock arXiv:2609.27981v1, 2026.
+\newblock URL \url{https://arxiv.org/abs/2609.27981}.
+
+\bibitem[{PyTorch contributors}(2026)]{pytorchnumerics}
+{PyTorch contributors}.
+\newblock Numerical accuracy.
+\newblock PyTorch documentation, 2026.
+\newblock URL
+  \url{https://docs.pytorch.org/docs/main/notes/numerical_accuracy.html}.
+\newblock Sections on batched and slice computations; checked 3 October 2026.
+
+\bibitem[Tang et~al.(2024)Tang, Zhao, Zhu, Xiao, Kasikci, and Han]{quest}
+Jiaming Tang, Yilong Zhao, Kan Zhu, Guangxuan Xiao, Baris Kasikci, and Song
+  Han.
+\newblock {Quest}: Query-aware sparsity for efficient long-context {LLM}
+  inference.
+\newblock arXiv:2406.10774, 2024.
+
+\bibitem[Wang et~al.(2026)Wang, Friedman, Lei, and Wang]{spla}
+Bailin Wang, Dan Friedman, Tao Lei, and Chong Wang.
+\newblock {SPLA}: Block sparse plus linear attention for long context modeling.
+\newblock arXiv:2601.22379, 2026.
+
+\bibitem[Wei and Liu(2026)]{pricingrisk}
+Fanzhe Wei and Li~Liu.
+\newblock Pricing the risk of runtime compression: Anytime-valid admission and
+  a served-output law for compressed serving state.
+\newblock arXiv:2608.15810v1, 2026.
+\newblock URL \url{https://arxiv.org/abs/2608.15810}.
+
+\bibitem[Wei et~al.(2026)Wei, Liu, Wang, and Wang]{witcert}
+Fanzhe Wei, Li~Liu, Ziyang Wang, and Chenyu Wang.
+\newblock {WitCert}: Sound runtime risk observability and gating for {KV}-cache
+  quantization.
+\newblock arXiv:2607.28699v3, 2026.
+
+\bibitem[Zadouri et~al.(2026)Zadouri, Hoehnerbach, Shah, Liu, Thakkar, and
+  Dao]{fa4}
+Ted Zadouri, Markus Hoehnerbach, Jay Shah, Timmy Liu, Vijay Thakkar, and Tri
+  Dao.
+\newblock {FlashAttention-4}: Algorithm and kernel pipelining co-design for
+  asymmetric hardware scaling.
+\newblock arXiv:2603.05451, 2026.
+
+\end{thebibliography}

@@ -1,0 +1,6 @@
+'AttentionFork.shared_state' does not depend on any axioms
+'AttentionFork.common_kernel_l1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AttentionFork.programme_budget' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AttentionFork.programme_reserve_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AttentionFork.local_single_head_tolerance' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AttentionFork.packing_charge' depends on axioms: [propext, Classical.choice, Quot.sound]
