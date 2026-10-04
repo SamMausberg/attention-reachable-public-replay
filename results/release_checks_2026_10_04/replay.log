@@ -1,0 +1,19 @@
+g++ -O3 -std=c++17 -fPIC -Wall -Wextra -shared code/separation.cpp -o code/separation.so
+g++ -O3 -std=c++17 -fPIC -Wall -Wextra -shared code/law96.cpp -o code/law96.so
+OPENBLAS_NUM_THREADS=1 python code/test_arithmetic.py
+{'sampler_cases': 35, 'independent_moment_checks': 33, 'expected_precision_guards': 2, 'edge_controls_passed': True, 'seconds': 0.05325839999932214}
+OPENBLAS_NUM_THREADS=1 python code/compact_replay.py
+Checked reached-state lower gain, projection, nine cliques, three dual allocation witnesses, and sequence budget.
+Tenfold budget 6451 rejected; 18632 still rejected; 18633 is the first nonrejected lower-bound budget.
+Total wall time: 11.051 seconds
+OPENBLAS_NUM_THREADS=1 python code/verify_output.py
+CHECKED 22 paired snapshots and 8 sampler comparisons
+logits_fp32 8.616625106287724e-07
+logits_scores_64 4.493499704304497e-05
+logits_scores_256 1.1476237456430722e-05
+logits_time_0 0.02837270649250018
+logits_scores_0 0.01974428538397113
+logits_bf16_attention 0.003019522548278284
+logits_fp64_attention 1.4700675989592514e-06
+bf16_vs_fp32 0.0030194849894322464
+fp64_vs_fp32 1.6844711602457532e-06

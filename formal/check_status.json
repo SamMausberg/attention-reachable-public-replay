@@ -42,5 +42,8 @@
     "full KL chain-rule theorem",
     "PyTorch executor",
     "packing geometry and full allocation theorem"
-  ]
+  ],
+  "last_checked": "2026-10-04",
+  "validation_source_sha256": "10cb756516d20108cdf94965036d7cbea356d18f1f2908ead3ecbe30a6bb6edb",
+  "validation_record": "results/release_checks_2026_10_04/README.md"
 }

@@ -8,7 +8,9 @@ authors:
 date-released: 2026-10-03
 repository-code: "https://github.com/SamMausberg/attention-reachable-public-replay"
 url: "https://github.com/SamMausberg/attention-reachable-public-replay"
+license: MIT
 preferred-citation:
+  license: CC-BY-4.0
   type: unpublished
   title: "A reachable-state separation between attention compression and its certificates"
   authors:

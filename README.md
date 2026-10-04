@@ -156,3 +156,12 @@ If you use this paper, code, or replay data, please cite Samuel Mausberg,
 *A reachable-state separation between attention compression and its certificates*
 (2026). [CITATION.cff](CITATION.cff) supplies the preferred paper citation for
 GitHub's **Cite this repository** feature.
+
+The October 4 rerun passed the replay, arithmetic, retained output, paper build,
+and six-declaration Lean checks. See [the validation record](results/release_checks_2026_10_04/README.md).
+
+## License
+
+The manuscript and original research material use [CC BY 4.0](LICENSES/CC-BY-4.0.txt).
+Original code uses [MIT](LICENSES/MIT.txt). Third-party notices remain in effect.
+See [LICENSE](LICENSE) for the scope and [CITATION.cff](CITATION.cff) for citation metadata.
