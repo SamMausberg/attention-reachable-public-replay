@@ -1,8 +1,9 @@
 # A reachable-state separation between attention compression and its certificates
 
-This replay bundle accompanies the paper by Samuel Mausberg. The PDF and this
-bundle will be linked from his GitHub profile. The checkpoint is fetched
-separately and checked by SHA-256 before loading.
+This repository contains the [paper](paper/paper.pdf), [LaTeX source](paper/paper.tex),
+and replay bundle by Samuel Mausberg, including the retained witnesses and
+reproduction instructions below. The checkpoint is fetched separately and checked
+by SHA-256 before loading.
 
 The experiment changes only the final attention read of frozen
 SmolLM2-135M-Instruct Q8_0, dequantized to binary32. The earlier twenty-nine blocks
@@ -132,7 +133,7 @@ make paper
 
 pdfLaTeX, BibTeX, newtx, natbib, TikZ and pgfplots are required. The build script
 rejects final-pass warnings and overfull or underfull boxes. Every figure is
-native TeX using retained data. The LaTeX source archive is also self-contained.
+native TeX using retained data. The LaTeX sources are self-contained.
 
 `formal/FiniteKernel.lean` remains a partial development. For this public release,
 all six theorems compile with Lean 4.34.1 and the pinned Mathlib revision, without
@@ -145,10 +146,10 @@ lake build
 lake env lean CheckAxioms.lean
 ```
 
-`formal/check_status.json` records the check and its scope. The paper's unchecked
-status describes the original producing environment. The checker implementation
-remains trusted numerical code; `AUDIT.md` states what the exact witnesses and
-tests establish.
+`formal/check_status.json` records the check and its scope. The paper describes
+these checked declarations and the results that remain outside the formalization.
+The checker implementation remains trusted numerical code; `AUDIT.md` states what
+the exact witnesses and tests establish.
 
 ## Citation
 

@@ -30,7 +30,7 @@
 \input{numbers.tex}
 \title{A reachable-state separation between\newline attention compression and its certificates}
 \author{Samuel Mausberg}
-\date{3 October 2026}
+\date{4 October 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -38,11 +38,11 @@ Does a certificate's refusal reflect the model's sensitivity or information lost
 \end{abstract}
 
 \section{What the refusal means}
-On a frozen pretrained transformer, a norm-based attention certificate can reject compression whose complete generated-sequence law stays within budget. We establish this separation at the terminal attention boundary of SmolLM2-135M. A sound local readout enclosure greatly reduces the gain used in the earlier refusal argument, yet the specified certificate still rejects every partition small enough to give tenfold grouping. An explicit partition has a much smaller, directly checked effect on the output law. A second checker, which evaluates the reference logits, authorizes repeated compression while controlling the law of all 1,024 generated tokens.
+On a frozen pretrained transformer, a norm-based attention certificate can reject compression whose complete generated-sequence law stays within budget. We establish this separation at the terminal attention boundary of SmolLM2-135M. A sound local readout enclosure greatly reduces the global gain obtained at the origin, yet the specified certificate still rejects every partition small enough to give tenfold grouping. An explicit partition has a much smaller, directly checked effect on the output law. A second checker, which evaluates the reference logits, authorizes repeated compression while controlling the law of all 1,024 generated tokens.
 
 The two findings use the same weights and stored attention inputs. For the norm-based certificate, we lower-bound the certificate of \emph{every} sufficiently small partition, allowing query-dependent groups and unequal allocation between heads. For the successful intervention, we run a concrete partition through the remainder of the network and check the categorical law of its executed logits. This compares an unavoidable certificate charge with the actual distributional effect of compression.
 
-The earlier argument used a readout gain of at least 3,500, obtained by differentiating the RMS-normalized readout at the origin. The recorded hidden vector instead has Euclidean norm about 948.989. Rational checks on its stored bits give
+Differentiating the RMS-normalized readout at the origin gives a lower bound of 3,500 on the global readout gain. The recorded hidden vector instead has Euclidean norm about 948.989. Rational checks on its stored bits give
 \begin{equation}\label{eq:localintro}
              0.28\ \leq\ C_1^*(x)\ \leq\ 0.746,
 \end{equation}
@@ -58,7 +58,7 @@ Recent work already examines vacuous compression certificates and output-aware r
 
 \section{The executable and the comparison}
 \label{sec:executable}
-The frozen checkpoint is the released Q8\_0 export of SmolLM2-135M-Instruct~\citep{smollm,smollmcard,ggufrelease}. Its published SHA-256 is matched before loading. Our reference holds the exporter's dequantized tensors fixed in binary32; it is not the original BF16 checkpoint. The model has thirty blocks, width 576, nine query heads, three KV heads, and head dimension 64. Its native context limit is 8,192 tokens. The two rollout prompts each contain 7,168 tokens, leaving room for 1,024 outputs. One is the technical research note used by the preceding experiment; the other is the opening of Lewis Carroll's public-domain \emph{Alice's Adventures in Wonderland}~\citep{alice}. Both prompt texts and token arrays are retained. The experiments leave the weights unchanged.
+The frozen checkpoint is the released Q8\_0 export of SmolLM2-135M-Instruct~\citep{smollm,smollmcard,ggufrelease}. Its published SHA-256 is matched before loading. Our reference holds the exporter's dequantized tensors fixed in binary32; it is not the original BF16 checkpoint. The model has thirty blocks, width 576, nine query heads, three KV heads, and head dimension 64. Its native context limit is 8,192 tokens. The two rollout prompts each contain 7,168 tokens, leaving room for 1,024 outputs. One is a technical research note retained as \texttt{data/prompt.txt} in the replay bundle; the other is the opening of Lewis Carroll's public-domain \emph{Alice's Adventures in Wonderland}~\citep{alice}. Both prompt texts and token arrays are retained. The experiments leave the weights unchanged.
 
 The CPU executor uses PyTorch 2.10.0, four compute threads, adjacent-pair RoPE for the GGUF-permuted query and key rows, and dense scaled-dot-product attention. Generation uses temperature one and no top-$k$, top-$p$, or stopping rule; EOS is an ordinary symbol in the fixed-length output law. A binary32 logit vector $z$ defines the ideal conditional law $\operatorname{softmax}(z)$. Appendix~\ref{app:arithmetic} specifies the finite sampler and bounds its difference from that law.
 
@@ -346,7 +346,7 @@ The contribution is therefore this finite-checkpoint separation and its executab
 The measured terminal-attention boundary separates compression quality from the information retained by its certificate. Replacing the origin-based readout gain by a verified local enclosure still leaves an all-partitions refusal of tenfold grouping in the specified scalar-envelope class. A concrete partition has a small checked sequence shift, and a probability-weighted gate supports repeated interventions within the 1,024-token budget. The next computational question is how to obtain enough output-sensitive information for admission without evaluating the dense reference at every step.
 
 \paragraph{Limitations.}
-The separation is established on one frozen checkpoint at a KV-preserving final-layer boundary, with two sampled continuations. It leaves earlier-layer state compression and workload-population acceptance rates open. The refusal covers the stated coordinate-box and scalar Euclidean envelopes, while the passing checker trades dense reference computation for its guarantee. The precision controls compare variants of the supplied executor. Numerical checks trust the stated integer implementations; the partial Lean sources remain unchecked.
+The separation is established on one frozen checkpoint at a KV-preserving final-layer boundary, with two sampled continuations. It leaves earlier-layer state compression and workload-population acceptance rates open. The refusal covers the stated coordinate-box and scalar Euclidean envelopes, while the passing checker trades dense reference computation for its guarantee. The precision controls compare variants of the supplied executor. Numerical checks trust the stated integer implementations. The Lean development checks only finite-kernel and shared-state identities and rational arithmetic.
 
 \appendix
 \section{Derivation of the centred attention certificate}
@@ -439,29 +439,29 @@ The implementation checks $R<D_\Delta$ before forming a positive denominator. It
 \subsection{Sampling assumptions and numerical trust}
 Sampling draws a uniform 64-bit word and locates it in the arbitrary-precision cumulative integer counts. The proof assumes independent uniform words, as does the specification of a categorical sampler; the experiment records the operating-system-generated words for replay. The finite reference program maps any nonfinite logit vector to zero logits, and the hybrid uses the same totalization. No such case occurred in the recorded runs. This convention avoids leaving the program's probability law undefined on an untested history.
 
-The integer operations, guards, and witness formats of the C++ and Python checkers form the trusted numerical implementation. Independent checks are included in the replay bundle. Partial Lean 4 sources cover finite-kernel TV algebra, shared-state induction, and rational budget arithmetic. Neither Lean nor Lake was installed, and the attempted compiler download failed because the runtime could not resolve the host, so these sources were not kernel-checked. The analytic inequalities, C++ implementation, and transformer executor also remain outside the formalized development.
+The integer operations, guards, and witness formats of the C++ and Python checkers form the trusted numerical implementation. Independent checks are included in the replay bundle. Its partial Lean development contains six declarations, checked with Lean 4.34.1 and the pinned Mathlib revision, with no \texttt{sorryAx} dependencies. These establish a finite-kernel $L^1$ identity, a shared-state identity, and rational arithmetic facts; \texttt{formal/check\_status.json} records their scope and axiom dependencies. The analytic inequalities, full KL chain rule, packing geometry and allocation theorem, numerical checker implementations, and transformer executor remain outside the formalized development.
 
 \section{Reproduction and recorded execution}
 \label{app:artifact}
-The PDF and replay bundle will be linked from the author's GitHub profile, \url{https://github.com/SamMausberg}. The checkpoint is fetched separately from the release in~\citet{ggufrelease}; its SHA-256 is verified before tensor loading. The required digest is
+The paper, source, and replay bundle are available in the \href{https://github.com/SamMausberg/attention-reachable-public-replay}{public replay repository}. The repository includes the retained witnesses, checker implementations, and reproduction instructions. The checkpoint is fetched separately from the release in~\citet{ggufrelease}; its SHA-256 is verified before tensor loading. The required digest is
 \begin{center}\small\ttfamily
 5a1395716f7913741cc51d98581b9b1228d8\allowbreak
 0987a9f7d3664106742eb06bba83
 \end{center}
 The replay bundle contains both prompt-token arrays, the final-layer snapshot, nine clique witnesses, the reached-state and projection witnesses, exact categorical count laws for the first-intervention experiment, eleven paired snapshots from each rollout, complete token and random-word traces, raw timing records, and the figure-generation script. Full-vocabulary tensors used for the upper bound are reconstructed from the checkpoint.
 
-The second prompt begins at Chapter~I of \emph{Alice's Adventures in Wonderland}, using the Project Gutenberg text~\citep{alice}, and is truncated to exactly 7,168 tokens without a chat wrapper or added beginning-of-sequence token. The retained UTF-8 excerpt fixes the whitespace; re-encoding it with the checkpoint tokenizer reproduces the saved token array. Its source, text and token digests, and selection record accompany the replay. The Alice execution and its dense control were rerun for this revision; the technical execution and the first-intervention and packing witnesses are unchanged.
+The second prompt begins at Chapter~I of \emph{Alice's Adventures in Wonderland}, using the Project Gutenberg text~\citep{alice}, and is truncated to exactly 7,168 tokens without a chat wrapper or added beginning-of-sequence token. The retained UTF-8 excerpt fixes the whitespace; re-encoding it with the checkpoint tokenizer reproduces the saved token array. Its source, text and token digests, and selection record accompany the replay. The bundle retains the Alice execution and its dense control alongside the technical execution and the first-intervention and packing witnesses.
 
 The compact replay checks the local readout lower bound, the projection witness, all clique separations, exact mass charges, the allocation refusal, and the rational sequence-budget comparison. A separate independent replay checks the saved categorical laws and paired logit witnesses. Verifying the all-vocabulary row-norm upper bound additionally requires the checkpoint, because it refers to every vocabulary row rather than only the witness pair. The complete executor and extraction scripts are included for that reproduction.
 
-The recorded runs include checkpoint loading, prompt preparation, prefill, raw cache allocation and updates, sorting, centroid construction, dense fallback, integer probability construction, sampling, and trace output. The earlier 52.55\% interaction floor aggregated all thirty layers under a global readout gain; the 28.883\% floor here concerns the final layer under the local readout bound.
+The recorded runs include checkpoint loading, prompt preparation, prefill, raw cache allocation and updates, sorting, centroid construction, dense fallback, integer probability construction, sampling, and trace output. The 28.883\% interaction floor concerns the final layer under the local readout bound; it does not bound the fraction of interactions required across all thirty layers.
 
 The technical execution was replayed using its recorded 64-bit random words after replacing the sampler's vectorized cumulative sum with an arbitrary-precision cumulative sum. All 1,024 output tokens agree. Eleven saved technical logit pairs were independently checked with a 256-bit Python exponential enclosure; each upper second moment lies below the fast C++ enclosure. The same comparison was repeated for the ten Alice snapshots with a computed KL bound. The remaining Alice snapshot triggers a precision guard, and its served count law was checked against the reference fallback. Token-level TVs summarized from the sampled traces are numerical diagnostics rather than estimates of full-sequence TV.
 
 The dense timing controls use the same reference executor, integer sampler, and recorded random words. The technical dense run first differs in emitted tokens at zero-based index 115. Shared-word inverse-CDF sampling is not a maximal coupling, so this mismatch gives no lower bound on the TV of the two laws. The two prompt experiments were not preregistered; the uniform program guarantee follows from the gate independently of their admission counts.
 
 \section*{Acknowledgment of computational assistance}
-The mathematical development, implementation, experiments, and manuscript revision were prepared with GPT-6 Astra Pro (OpenAI). The released records distinguish exact arithmetic checks, executed floating-point measurements, and unchecked formalization sources.
+The mathematical development, implementation, experiments, and manuscript revision were prepared with GPT-6 Astra Pro (OpenAI). The released records distinguish exact arithmetic checks, executed floating-point measurements, and the scope of the partial Lean development.
 
 \bibliographystyle{plainnat}
 \bibliography{references}
