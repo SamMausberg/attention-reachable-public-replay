@@ -10,7 +10,7 @@ repository-code: "https://github.com/SamMausberg/attention-reachable-public-repl
 url: "https://github.com/SamMausberg/attention-reachable-public-replay"
 license: MIT
 preferred-citation:
-  doi: "10.5281/zenodo.23147505"
+  doi: "10.5281/zenodo.23148028"
   license: CC-BY-4.0
   type: unpublished
   title: "A reachable-state separation between attention compression and its certificates"
