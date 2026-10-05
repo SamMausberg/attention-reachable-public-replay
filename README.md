@@ -88,7 +88,8 @@ execution and its dense control were rerun sequentially for this revision at
 concurrency one, with four CPU compute threads. No inference or numerical-audit
 job overlapped the pair. `results/environment_alice.json` records the environment;
 `results/unchanged_execution_sources.json` records hashes of the unchanged
-inference and sampling sources. The new sampled acceptance count happens to
+inference and sampling sources as of commit `d3f5acd`; later formatting left their
+syntax trees unchanged (see `CHANGES.md`, section 8). The new sampled acceptance count happens to
 match the former second-prompt count; the prompt, words, tokens and curves are
 new.
 

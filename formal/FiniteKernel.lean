@@ -1,8 +1,12 @@
 import Mathlib
+
+/-!
+Partial formalization, kernel-checked for the public release.
+These statements do not formalize the C++ numerical checker or PyTorch.
+-/
+
 open scoped BigOperators
 
-/- Partial formalization, kernel-checked for the public release.
-   These statements do not formalize the C++ numerical checker or PyTorch. -/
 namespace AttentionFork
 
 def runState {S A : Type*} (step : S → A → S) : S → List A → S
@@ -20,13 +24,12 @@ theorem common_kernel_l1 {I J : Type*} [Fintype I] [Fintype J]
     (nonneg : ∀ i j, 0 ≤ K i j) (normalized : ∀ i, ∑ j, K i j = 1) :
     (∑ i, ∑ j, |p i * K i j - q i * K i j|) = ∑ i, |p i - q i| := by
   apply Finset.sum_congr rfl
-  intro i hi
+  intro i _
   calc
-    (∑ j, |p i * K i j - q i * K i j|)
-        = ∑ j, |p i - q i| * K i j := by
-            apply Finset.sum_congr rfl
-            intro j hj
-            rw [← sub_mul, abs_mul, abs_of_nonneg (nonneg i j)]
+    (∑ j, |p i * K i j - q i * K i j|) = ∑ j, |p i - q i| * K i j := by
+      apply Finset.sum_congr rfl
+      intro j _
+      rw [← sub_mul, abs_mul, abs_of_nonneg (nonneg i j)]
     _ = |p i - q i| * ∑ j, K i j := by rw [Finset.mul_sum]
     _ = |p i - q i| := by rw [normalized i, mul_one]
 
@@ -47,4 +50,5 @@ theorem local_single_head_tolerance :
 theorem packing_charge :
     ((1 : ℚ) / 2) * (1 / 2) / (2 * (2 + 1 / 2)) = 1 / 20 := by
   norm_num
+
 end AttentionFork

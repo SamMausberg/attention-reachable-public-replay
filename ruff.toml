@@ -1,0 +1,12 @@
+line-length = 100
+target-version = "py312"
+src = ["code"]
+
+[lint]
+select = ["E4", "E7", "E9", "F", "I"]
+ignore = ["E741"]
+
+[lint.per-file-ignores]
+# Execution sources pinned by results/unchanged_execution_sources.json are
+# formatted only, so their syntax trees stay identical to the hashed bytes.
+"code/{rollout,baseline,smollm,fastlaw,categorical,gguf_reader}.py" = ["E401", "F401", "I001"]

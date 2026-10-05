@@ -49,3 +49,14 @@ The arithmetic tests passed 35 sampler cases, 33 independent moment comparisons,
 The release audit passed 1,101 assertions, including the per-admitted-step integer comparisons, numerical macros, plotted data, unchanged mathematical displays, unchanged execution sources and preserved witnesses. The 13-page paper compiled without final-pass warnings, unresolved references, or overfull/underfull boxes. All pages were rendered and inspected. The complete LaTeX archive was then extracted into a clean directory and rebuilt; its page text agrees with the delivered PDF.
 
 No new Lean verification is claimed. The stated numerical implementation and independent-uniform-word assumptions remain the trust boundary.
+
+## 8. Source formatting
+
+The Python sources are formatted with `ruff format` and the C++ sources with `clang-format`; `ruff.toml` and `.clang-format` record the settings. The six Python execution sources hashed in `results/unchanged_execution_sources.json` were formatted only: their Python syntax trees are identical to the hashed bytes, which remain at commit `d3f5acd`. Both C++ sources compile to identical machine code with the Makefile flags. In the remaining Python files, unused standard-library imports were removed and import blocks sorted; their other syntax is unchanged. `formal/FiniteKernel.lean` received layout changes only, and `formal/check_status.json` records its new digest.
+
+After formatting, `make all test check output-check` reproduced the retained arithmetic, compact-replay and output-verification records apart from elapsed time, and `lake build` and `lake env lean CheckAxioms.lean` reproduced the six axiom lists. Check formatting with:
+
+```sh
+ruff check code && ruff format --check code
+clang-format --dry-run --Werror code/*.cpp
+```
